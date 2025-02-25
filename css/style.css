@@ -47,6 +47,10 @@ h1 {
   text-transform: uppercase;
 }
 
+.filled-cell {
+  border: 2px solid black;
+}
+
 .correct {
   background-color: green;
   color: white;
