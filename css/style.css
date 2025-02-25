@@ -1,6 +1,93 @@
 body {
-    /* background-color: lightsalmon; */
-    margin: 0px;
-    font-family: system-ui, sans-serif;
-  }
-  
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f4f4f9;
+}
+
+.container {
+  text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+#game-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border: 2px solid #ccc;
+  margin: 5px;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.correct {
+  background-color: green;
+  color: white;
+}
+
+.present {
+  background-color: yellow;
+  color: black;
+}
+
+.absent {
+  background-color: grey;
+  color: white;
+}
+
+
+.attempts-left {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+#keyboard-cont {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#keyboard-cont div {
+  display: flex;
+}
+
+.second-row {
+  margin: 10px 0;
+}
+
+.keyboard-button {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 5px;
+  margin: 0 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
