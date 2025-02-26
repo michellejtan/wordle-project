@@ -80,7 +80,7 @@ function deleteLetter() {
     let row = document.getElementsByClassName("row")[6 - attempts]
     let box = row.children[nextLetter - 1]
     box.textContent = ""
-    box.classList.remove("filled-cell")
+    box.classList.remove("filled-box")
     guess = removeLastLetter(guess)
     console.log("Guess: " + guess);
     nextLetter -= 1
