@@ -109,12 +109,16 @@ function insertLetter(pressedKey) {
 
 function checkGuess() {
 
-    if (gameOver || guess.length != 5) {
+    if(gameOver) {
+        console.log("game is over!");
+        return;
+    }
+    if (guess.length != 5) {
         console.log("Not enough letters!");
         return;
     }
 
-    if (gameOver || !validWords.includes(guess)) {
+    if (!validWords.includes(guess)) {
         console.log("Word not in list!");
         guess = "";
         attempts -= 1;
