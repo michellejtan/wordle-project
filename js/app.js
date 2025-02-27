@@ -44,8 +44,10 @@ function initializeGameBoard() {
     }
 }
 function handleKeyboardInput(key) {
-    if (gameOver) return;
-
+    if (gameOver) {
+        console.log("Game is over!");
+        return;
+    }
     if (key === "Backspace" && nextLetter > 0) {
         deleteLetter();
         return;
@@ -132,7 +134,8 @@ function checkGuess() {
         gameOver = true;
         updateAttemptsDisplay();
         statusDisplay.textContent = `Congratulations! You've guessed the word in ${(currentRow + 1)} attempts!`;
-        showResetButton();    }
+        showResetButton();
+    }
 
     if (attempts !== 0 && !gameOver) {
         console.log("Try again!");
@@ -145,8 +148,6 @@ function checkGuess() {
         gameOver = true;
         showResetButton();
     }
-
-
     resetGuess();
 }
 
@@ -234,8 +235,34 @@ function resetGuess() {
 function showResetButton() {
     resetButton.style.display = "block";
 }
+function resetGame() {
+    resetButton.style.display = "none"; // Hide the button
+    gameOver = false;
+    attempts = MAX_ATTEMPTS;
+    currentRow = 0;
+    nextLetter = 0;
+    guess = "";
+    feedback = [];
+    secretWord = validWords[Math.floor(Math.random() * validWords.length)];
+    console.log(secretWord);
+    statusDisplay.textContent = "";
+    updateAttemptsDisplay();
 
+    // Clear game board
+    const rows = document.querySelectorAll(".row");
+    rows.forEach(row => row.remove());
 
+    // Clear keyboard styling
+    const keys = document.querySelectorAll(".keyboard-button");
+    keys.forEach(key => {
+        key.classList.remove("correct", "present", "incorrect");
+    });
+
+    // Reinitialize game board
+    initializeGameBoard();
+}
+
+resetButton.addEventListener("click", resetGame);
 
 // Initialize the game on page load
 initializeGameBoard();
