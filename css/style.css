@@ -150,3 +150,23 @@ h1 {
   background-color: yellow;
   color: black;
 }
+
+#reset-button {
+  background-color: green;
+  color: white;
+  border: 2px solid black;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 25px;
+  display: block;
+  margin: 20px auto; /* Centers the button */
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+#reset-button:hover {
+  background-color: darkgreen;
+  transform: scale(1.05);
+}

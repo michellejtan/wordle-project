@@ -17,6 +17,8 @@ const gameBoard = document.getElementById("game-board");
 const attemptsLeftDisplay = document.getElementById("attempts-left");
 const statusDisplay = document.getElementById("status");
 const keyboardCont = document.getElementById("keyboard-cont");
+const resetButton = document.getElementById("reset-button");
+
 
 
 // const keyboard = document.getElementById("keyboard");
@@ -105,11 +107,6 @@ function insertLetter(pressedKey) {
 }
 
 function checkGuess() {
-    if (gameOver) {
-        console.log("Game is over!");
-        statusDisplay.textContent = "Game is over!";
-        return;
-    }
 
     if (guess.length != WORD_LENGTH) {
         console.log("Not enough letters!");
@@ -135,10 +132,9 @@ function checkGuess() {
         gameOver = true;
         updateAttemptsDisplay();
         statusDisplay.textContent = `Congratulations! You've guessed the word in ${(currentRow + 1)} attempts!`;
-        return;
-    }
+        showResetButton();    }
 
-    if (attempts !== 0) {
+    if (attempts !== 0 && !gameOver) {
         console.log("Try again!");
         statusDisplay.textContent = `Try again!`;
     }
@@ -147,7 +143,10 @@ function checkGuess() {
         statusDisplay.textContent = `Game Over! The secret word was: ${secretWord}`;
         console.log(`Game Over! The secret word was: ${secretWord}`);
         gameOver = true;
+        showResetButton();
     }
+
+
     resetGuess();
 }
 
@@ -232,6 +231,11 @@ function resetGuess() {
     currentRow += 1;  // Move to the next row
     nextLetter = 0;   // Reset the letter position for the next row
 }
+function showResetButton() {
+    resetButton.style.display = "block";
+}
+
+
 
 // Initialize the game on page load
 initializeGameBoard();
