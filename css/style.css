@@ -45,6 +45,42 @@ h1 {
   font-weight: bold;
   font-size: 18px;
   text-transform: uppercase;
+ 
+  
+  transition: transform 0.5s,  background-color 0.3s ease;;
+  transform-style: preserve-3d;
+}
+
+
+/* Shaking animation */
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-10px);
+  }
+
+  50% {
+    transform: translateX(10px);
+  }
+
+  75% {
+    transform: translateX(-10px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.cell.shake {
+  animation: shake 0.5s ease;
+}
+
+.cell.flipped {
+  transform: rotateX(180deg);
 }
 
 .filled-cell {
@@ -94,4 +130,23 @@ h1 {
   margin: 0 2px;
   cursor: pointer;
   text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+/* Correct (green) */
+.keyboard-button.correct {
+  background-color: green;
+  color: white;
+}
+
+/* Incorrect (gray) */
+.keyboard-button.incorrect {
+  background-color: gray;
+  color: white;
+}
+
+/* Present (yellow) */
+.keyboard-button.present {
+  background-color: yellow;
+  color: black;
 }
