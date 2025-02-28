@@ -16,7 +16,7 @@ Check out the game [here](https://michellejtan.github.io/wordle-project/)!
 
  ### How to play:
 - Guess the Wordle in 6 tries.
-- Each guess must be an invalid 5-letter word from the word blank
+- Each guess must be a valid 5-letter word from the word blank
 - The color of the tiles will change to show how close the guess was to the word:
     - 🟩 green: the letter is in the word and in the correct spot
     - 🟨 yellow: the letter is in the word but in the wrong spot
