@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./js/words.js"></script>
+    <script defer src="./js/words.js"></script>
     <script defer src="./js/app.js"></script>
-    <!-- <script type="module" src="words.js"></script> -->
 
     <link rel="stylesheet" href="./css/style.css">
     <title>Wordle Project</title>
@@ -14,8 +13,8 @@
 
 <body>
 
-    <div class="container">
-        <h1>Wordle</h1>
+    <main class="container">
+        <h1 aria-label="Wordle Game">Wordle</h1>
 
         <!-- Game Board (with grid for guesses) -->
         <div id="game-board">
@@ -63,7 +62,7 @@
         <p id="status"></p>
         <button id="reset-button" style="display: none;">New Game?</button>
 
-    </div>
+    </main>
 </body>
 
 </html>

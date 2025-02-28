@@ -9,8 +9,10 @@ let currentRow = 0;
 let feedback = [];
 
 let gameOver = false;
+
 console.log(secretWord);
-const error = new Audio('../assets/audio/error.mp3');
+
+const errorSound = new Audio('../assets/audio/error.mp3');
 
 
 const gameBoard = document.getElementById("game-board");
@@ -19,15 +21,10 @@ const statusDisplay = document.getElementById("status");
 const keyboardCont = document.getElementById("keyboard-cont");
 const resetButton = document.getElementById("reset-button");
 
-
-
-// const keyboard = document.getElementById("keyboard");
-
 function updateAttemptsDisplay() {
     attemptsLeftDisplay.textContent = attempts;
 }
 
-// Initialize the game board
 function initializeGameBoard() {
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
         const row = document.createElement("div");
@@ -36,18 +33,18 @@ function initializeGameBoard() {
         for (let j = 0; j < WORD_LENGTH; j++) {
             const cell = document.createElement("div");
             cell.classList.add("cell");
-            // cell.setAttribute('contenteditable', true);
             cell.setAttribute("maxlength", 1);
             row.appendChild(cell);
         }
         gameBoard.appendChild(row);
     }
 }
+
 function handleKeyboardInput(key) {
     if (gameOver) {
-        console.log("Game is over!");
         return;
     }
+
     if (key === "Backspace" && nextLetter > 0) {
         deleteLetter();
         return;
@@ -86,7 +83,6 @@ function deleteLetter() {
     box.textContent = "";
     box.classList.remove("filled-cell");
     guess = removeLastLetter(guess);
-    console.log("Guess: " + guess);
     nextLetter -= 1;
 }
 
@@ -100,55 +96,47 @@ function insertLetter(pressedKey) {
 
     let row = document.getElementsByClassName("row")[currentRow];
     let box = row.children[nextLetter];
-    console.log(box);
     box.textContent = pressedKey;
     box.classList.add("filled-cell");
     guess += pressedKey;
-    console.log("Guess: " + guess);
     nextLetter += 1;
 }
 
 function checkGuess() {
-
     if (guess.length != WORD_LENGTH) {
-        console.log("Not enough letters!");
         statusDisplay.textContent = "Not enough letters!";
         shakeAllBox();
         return;
     }
 
     if (!WORDS.includes(guess)) {
-        console.log("Word not in list!");
-        statusDisplay.textContent = "Word not in list!";
-
+        statusDisplay.textContent = `Word (${guess}) not in list!`;
         shakeAllBox();
         return;
     }
 
-    // after all erros
-    updateCellLetter(guess);
     attempts--;
+    updateCellLetter(guess);
     updateAttemptsDisplay();
 
+    if (attempts !== 0 && !gameOver) {
+        statusDisplay.textContent = `Try again!`;
+    }
+
     if (guess === secretWord) {
-        console.log("Congratulations! You guessed the word!");
         gameOver = true;
         updateAttemptsDisplay();
         statusDisplay.textContent = `Congratulations! You've guessed the word in ${(currentRow + 1)} attempts!`;
         showResetButton();
+        return;
     }
 
-    if (attempts !== 0 && !gameOver) {
-        console.log("Try again!");
-        statusDisplay.textContent = `Try again!`;
-    }
-    // console.log("at the end: " + attempts);
-    if (attempts === 0) {
+    if (guess !== secretWord && attempts === 0) {
         statusDisplay.textContent = `Game Over! The secret word was: ${secretWord}`;
-        console.log(`Game Over! The secret word was: ${secretWord}`);
         gameOver = true;
         showResetButton();
     }
+
     resetGuess();
 }
 
@@ -163,60 +151,45 @@ function shakeAllBox() {
             box.classList.remove('shake');
         }, 500);
     }
-    error.volume = .05;
-    error.play();
-
+    errorSound.volume = .05;
+    errorSound.play();
 }
 
 function updateCellLetter(guess) {
     let row = document.getElementsByClassName("row")[currentRow];
     let boxes = row.children;
 
-    for (let index = 0; index < boxes.length; index++) {
-        boxes[index].classList.add("flipped");
+    [...boxes].forEach((box, index) => {
+        box.classList.add("flipped");
+        setTimeout(() => box.classList.remove("flipped"), 500);
+    });
 
-        setTimeout(function () {
-            boxes[index].classList.remove("flipped");
-        }, 500);
-    }
-
-
-    // After flipping, check the guess and update the cells
-    for (let i = 0; i < WORD_LENGTH; i++) {
-        const letter = guess[i];
-        const correctLetter = secretWord[i];
+    guess.split("").forEach((letter, i) => {
         let delay = 250 * i;
         setTimeout(() => {
-            if (letter === correctLetter) {
-                feedback[i] = "correct"; // Green for correct letter in correct place
+            if (letter === secretWord[i]) {
+                feedback[i] = "correct";
                 boxes[i].classList.add("correct");
             } else if (secretWord.includes(letter)) {
-                feedback[i] = "present"; // Yellow for correct letter in wrong place
+                feedback[i] = "present";
                 boxes[i].classList.add("present");
             } else {
-                feedback[i] = "incorrect"; // Black for incorrect letter
+                feedback[i] = "incorrect";
                 boxes[i].classList.add("absent");
             }
         }, delay);
-    }
+    });
 
-    console.log(feedback);
-    for (let i = 0; i < 5; i++) {
-        const letter = guess[i];
+    guess.split("").forEach((letter, i) => {
         let delay = 250 * i;
-        setTimeout(() => {
-            updateKeyBoard(letter, feedback[i]);
-        }, delay);
-    }
+        setTimeout(() => updateKeyBoard(letter, feedback[i]), delay);
+    });
 };
 
 function updateKeyBoard(letter, feedback) {
     let keyboardButtons = document.querySelectorAll(".keyboard-button");
     let button = Array.from(keyboardButtons).find(btn => btn.textContent === letter);
-    if (!button) {
-        console.warn(`Button for letter "${letter}" not found.`);
-        return; // If the button is not found, exit the function early
-    }
+
     if (button.classList.contains("correct")) {
         return;
     }
@@ -232,14 +205,16 @@ function updateKeyBoard(letter, feedback) {
 
 function resetGuess() {
     guess = "";
-    currentRow += 1;  // Move to the next row
-    nextLetter = 0;   // Reset the letter position for the next row
+    currentRow += 1;
+    nextLetter = 0;
 }
+
 function showResetButton() {
     resetButton.style.display = "block";
 }
+
 function resetGame() {
-    resetButton.style.display = "none"; // Hide the button
+    resetButton.style.display = "none";
     gameOver = false;
     attempts = MAX_ATTEMPTS;
     currentRow = 0;
@@ -251,21 +226,17 @@ function resetGame() {
     statusDisplay.textContent = "";
     updateAttemptsDisplay();
 
-    // Clear game board
     const rows = document.querySelectorAll(".row");
     rows.forEach(row => row.remove());
 
-    // Clear keyboard styling
     const keys = document.querySelectorAll(".keyboard-button");
     keys.forEach(key => {
         key.classList.remove("correct", "present", "incorrect");
     });
 
-    // Reinitialize game board
     initializeGameBoard();
 }
 
 resetButton.addEventListener("click", resetGame);
 
-// Initialize the game on page load
 initializeGameBoard();

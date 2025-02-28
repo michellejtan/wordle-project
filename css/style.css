@@ -45,9 +45,8 @@ h1 {
   font-weight: bold;
   font-size: 18px;
   text-transform: uppercase;
- 
-  
-  transition: transform 0.5s,  background-color 0.3s ease;;
+
+  transition: transform 0.5s, background-color 0.3s ease;
   transform-style: preserve-3d;
 }
 
@@ -133,19 +132,16 @@ h1 {
   transition: background-color 0.3s ease;
 }
 
-/* Correct (green) */
 .keyboard-button.correct {
   background-color: green;
   color: white;
 }
 
-/* Incorrect (gray) */
 .keyboard-button.incorrect {
   background-color: gray;
   color: white;
 }
 
-/* Present (yellow) */
 .keyboard-button.present {
   background-color: yellow;
   color: black;
@@ -161,7 +157,7 @@ h1 {
   cursor: pointer;
   border-radius: 25px;
   display: block;
-  margin: 20px auto; /* Centers the button */
+  margin: 20px auto;
   text-align: center;
   transition: background-color 0.3s ease, transform 0.2s;
 }
