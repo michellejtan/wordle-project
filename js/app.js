@@ -1,8 +1,7 @@
-const validWords = ["apple", "table", "chair", "store", "world", "plant", "drink", "flame"];
 const WORD_LENGTH = 5;
 const MAX_ATTEMPTS = 6;
 
-let secretWord = validWords[Math.floor(Math.random() * validWords.length)];
+let secretWord = WORDS[Math.floor(Math.random() * WORDS.length)];
 let attempts = MAX_ATTEMPTS;
 let nextLetter = 0;
 let guess = '';
@@ -11,6 +10,7 @@ let feedback = [];
 
 let gameOver = false;
 console.log(secretWord);
+const error = new Audio('../assets/audio/error.mp3');
 
 
 const gameBoard = document.getElementById("game-board");
@@ -117,9 +117,10 @@ function checkGuess() {
         return;
     }
 
-    if (!validWords.includes(guess)) {
+    if (!WORDS.includes(guess)) {
         console.log("Word not in list!");
-        statusDisplay.textContent = "Not enough letters!";
+        statusDisplay.textContent = "Word not in list!";
+
         shakeAllBox();
         return;
     }
@@ -162,6 +163,8 @@ function shakeAllBox() {
             box.classList.remove('shake');
         }, 500);
     }
+    error.volume = .05;
+    error.play();
 
 }
 
@@ -243,7 +246,7 @@ function resetGame() {
     nextLetter = 0;
     guess = "";
     feedback = [];
-    secretWord = validWords[Math.floor(Math.random() * validWords.length)];
+    secretWord = WORDS[Math.floor(Math.random() * WORDS.length)];
     console.log(secretWord);
     statusDisplay.textContent = "";
     updateAttemptsDisplay();
