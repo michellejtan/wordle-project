@@ -12,7 +12,7 @@ let gameOver = false;
 
 console.log(secretWord);
 
-const errorSound = new Audio("wordle-project/assets/audio/error.mp3");
+const errorSound = new Audio("https://michellejtan.github.io/wordle-project/assets/audio/error.mp3");
 
 
 const gameBoard = document.getElementById("game-board");
