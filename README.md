@@ -1,19 +1,23 @@
+# WORDLE
 WELCOME! 
 
-This is a game called Wordle! 
+This is a copy of Wordle with some changes!
+Get 6 chances to guess a 5-letter word.
 
-The object of the game is to  . 
+Check out the game [here](https://github.com/michellejtan/wordle-project)!
+ 
+## Tech Stack
+ JavaScript, HTML, CSS.
 
-Uses JavaScript, HTML, CSS.
 
-Link -> [link](https://github.com/michellejtan/wordle-project)
 
-Simply click start to begin the game, good luck! 
 
 ![image](link)
 
+### Key Features
+- Allow for unlimited play.
+- User can see what's the **correct** **word** is at the end.
 
-
-Next steps:
-- implement 
-- add sounds
+## Next steps:
+- implement theme colors
+- add sounds for other effects
