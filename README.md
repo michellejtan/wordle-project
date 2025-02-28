@@ -1,7 +1,7 @@
 # WORDLE
 WELCOME! 
 
-This is a copy of Wordle with some changes!
+This is a copy of [Wordle](https://www.nytimes.com/games/wordle/index.html) with some changes!
 
 Get 6 chances to guess a 5-letter word.
 
